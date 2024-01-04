@@ -1,24 +1,27 @@
 package com.example.locationvoiture.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Table
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 
 public class Car {
+
+
     @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
     private String marque;
     private String modele;
+    private String nbPlaces;
     private String immatriculation;
     private String couleur;
+
+
 
 }

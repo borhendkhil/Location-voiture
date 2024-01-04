@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Car Management</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
+</head>
+
+<body>
+
+    <div class="container mt-4">
+        <h1 class="mb-4">Car Management</h1>
+
+
+        <div th:if="${not #lists.isEmpty(cars)}">
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Marque</th>
+                        <th>Modele</th>
+                        <th>Nombre de place</th>
+                        <th>immatriculation</th>
+                        <th>Coleur</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="car : ${cars}">
+                        <td th:text="${car.id}"></td>
+                        <td th:text="${car.marque}"></td>
+                        <td th:text="${car.modele}"></td>
+                        <td th:text="${car.nbPlaces}"></td>
+                        <td th:text="${car.immatriculation}"></td>
+                        <td th:text="${car.couleur}"></td>
+                        <td>
+                            <a th:href="@{|/cars/edit/${car.id}|}" class="btn btn-warning btn-sm">Edit</a>
+                            <form th:action="@{|/cars/delete/${car.id}|}" method="post">
+                                <input type="hidden" name="id" th:value="${car.id}" />
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </td>                        
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <div>
+            <h2 class="mt-4">Create New Car</h2>
+            <form th:action="@{/cars/new}" method="post" th:object="${car}" class="mb-4">
+                <div class="form-group">
+                    <label for="marque">Marque :</label>
+                    <input type="text" id="marque" name="marque" th:field="*{marque}" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="modele">Modele :</label>
+                    <input type="text" id="modele" name="modele" th:field="*{modele}" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="nbPlaces">Nombre de place :</label>
+                    <input type="text" id="nbPlaces" name="nbPlaces" th:field="*{nbPlaces}" class="form-control"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="immatriculation">immatriculation :</label>
+                    <input type="text" id="immatriculation" name="immatriculation" th:field="*{immatriculation}"
+                        class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="couleur">Color:</label>
+                    <input type="text" id="couleur" name="couleur" th:field="*{couleur}" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-success">Create</button>
+            </form>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
